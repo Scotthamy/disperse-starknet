@@ -1,25 +1,13 @@
 import { FC, useEffect, useState } from "react";
 import { AccountInterface, cairo, CallData } from "starknet";
 import { truncateHex } from "../services/address.service";
-import { parseText } from "../services/utils.service";
+import { parseText, getDisperseAddress } from "../services/utils.service";
 import {
   getExplorerBaseUrl,
   networkId,
   waitForTransaction,
 } from "../services/wallet.service";
 import styles from "../styles/Home.module.css";
-
-const dispeseAddessByNetwork = {
-  "goerli-alpha":
-    "0x01cddfc8b081342199e75413caccff64f2ff7f15954267ad95152fdacf66d25b",
-  "mainnet-alpha":
-    "0x00ecbd1107cdd47d0762908f6933b75d5b96896893dbf20c399c3808410ce940",
-};
-
-type PublicNetwork = keyof typeof dispeseAddessByNetwork;
-
-const getDisperseAddress = (network: PublicNetwork) =>
-  dispeseAddessByNetwork[network];
 
 type Status = "idle" | "approve" | "pending" | "success" | "failure";
 
@@ -142,8 +130,8 @@ export const TokenDapp: FC<{
           <h2 className={styles.title}>Transfer token</h2>
 
           <label htmlFor="erc20-address">
-            Token contract address (Find you token addess on blockchain explorer
-            or your wallet)
+            Token contract address (Find your token address on blockchain
+            explorer or your wallet)
           </label>
           <input
             style={{

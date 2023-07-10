@@ -137,15 +137,3 @@ export const removeWalletChangeListener = async (
   }
   starknet.off("accountsChanged", handleEvent);
 };
-
-export const declare = async (contract: string, classHash: string) => {
-  const starknet = getStarknet();
-  if (!starknet?.isConnected) {
-    throw Error("starknet wallet not connected");
-  }
-
-  return starknet.account.declare({
-    contract,
-    classHash,
-  });
-};

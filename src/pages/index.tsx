@@ -12,10 +12,10 @@ import {
   silentConnectWallet,
 } from "../services/wallet.service";
 import styles from "../styles/Home.module.css";
+import { getDisperseUrl } from "../services/utils.service";
 
 const Home: NextPage = () => {
   const [address, setAddress] = useState<string>();
-  const [supportSessions, setSupportsSessions] = useState<boolean | null>(null);
   const [chain, setChain] = useState(chainId());
   const [isConnected, setConnected] = useState(false);
   const [account, setAccount] = useState<AccountInterface | null>(null);
@@ -61,6 +61,15 @@ const Home: NextPage = () => {
             </h3>
             <h3 style={{ margin: 0 }}>
               Network: <code>{chain}</code>
+            </h3>
+            <h3 style={{ margin: 0 }}>
+              Contracts:{" "}
+              <code className="contract">
+                <a href={getDisperseUrl("goerli-alpha")}>SN_GOERLI</a>
+              </code>
+              <code>
+                <a href={getDisperseUrl("mainnet-alpha")}>SN_GOERLI</a>
+              </code>
             </h3>
             {account && <TokenDapp account={account} />}
           </>

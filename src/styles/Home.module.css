@@ -10,6 +10,11 @@
   flex-direction: column;
 }
 
+.contract {
+  margin-top: 0px;
+  margin-right: 0px;
+}
+
 .connect {
   max-width: 300px;
 }
