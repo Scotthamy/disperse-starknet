@@ -1,50 +1,27 @@
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
-import { AccountInterface } from "starknet";
+import { AccountInterface, shortString, ProviderInterface } from "starknet";
 
 import { TokenDapp } from "../components/TokenDapp";
 import { truncateAddress } from "../services/address.service";
-import {
-  addWalletChangeListener,
-  chainId,
-  connectWallet,
-  removeWalletChangeListener,
-  silentConnectWallet,
-} from "../services/wallet.service";
+import { connectWallet } from "../services/wallet.service";
 import styles from "../styles/Home.module.css";
 import { getDisperseUrl } from "../services/utils.service";
 
 const Home: NextPage = () => {
   const [address, setAddress] = useState<string>();
-  const [chain, setChain] = useState(chainId());
+  const [chain, setChain] = useState<string>();
   const [isConnected, setConnected] = useState(false);
   const [account, setAccount] = useState<AccountInterface | null>(null);
-
-  useEffect(() => {
-    const handler = async () => {
-      const wallet = await silentConnectWallet();
-      setAddress(wallet?.selectedAddress);
-      setChain(chainId());
-      setConnected(!!wallet?.isConnected);
-      if (wallet?.account) {
-        setAccount(wallet.account);
-      }
-    };
-
-    (async () => {
-      await handler();
-      addWalletChangeListener(handler);
-    })();
-
-    return () => {
-      removeWalletChangeListener(handler);
-    };
-  }, []);
+  const [provider, setProvider] = useState<ProviderInterface | null>(null);
 
   const handleConnectClick = async () => {
     const wallet = await connectWallet();
     setAddress(wallet?.selectedAddress);
-    setChain(chainId());
+    if (wallet?.provider) {
+      setProvider(wallet.provider);
+    }
+    setChain(shortString.decodeShortString(wallet?.provider.chainId));
     setConnected(!!wallet?.isConnected);
     if (wallet?.account) {
       setAccount(wallet.account);
@@ -71,7 +48,7 @@ const Home: NextPage = () => {
                 <a href={getDisperseUrl("mainnet-alpha")}>SN_GOERLI</a>
               </code>
             </h3>
-            {account && <TokenDapp account={account} />}
+            {account && <TokenDapp provider={provider} account={account} />}
           </>
         ) : (
           <>

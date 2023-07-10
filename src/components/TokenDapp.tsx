@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { AccountInterface, cairo, CallData } from "starknet";
+import { AccountInterface, cairo, CallData, ProviderInterface } from "starknet";
 import { truncateHex } from "../services/address.service";
 import { parseText, getDisperseAddress } from "../services/utils.service";
 import {
@@ -12,8 +12,9 @@ import styles from "../styles/Home.module.css";
 type Status = "idle" | "approve" | "pending" | "success" | "failure";
 
 export const TokenDapp: FC<{
+  provider: ProviderInterface;
   account: AccountInterface;
-}> = ({ account }) => {
+}> = ({ provider, account }) => {
   const [erc20Address, seterc20Address] = useState("");
   const [transferTo, setTransferTo] = useState("");
 
@@ -28,7 +29,7 @@ export const TokenDapp: FC<{
       if (lastTransactionHash && transactionStatus === "pending") {
         setTransactionError("");
         try {
-          await waitForTransaction(lastTransactionHash);
+          await waitForTransaction(provider, lastTransactionHash);
           setTransactionStatus("success");
         } catch (error: any) {
           setTransactionStatus("failure");
@@ -42,7 +43,7 @@ export const TokenDapp: FC<{
     })();
   }, [transactionStatus, lastTransactionHash]);
 
-  const network = networkId();
+  const network = networkId(provider);
   if (network !== "goerli-alpha" && network !== "mainnet-alpha") {
     return (
       <>
