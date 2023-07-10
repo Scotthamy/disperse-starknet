@@ -12,9 +12,8 @@ import styles from "../styles/Home.module.css";
 type Status = "idle" | "approve" | "pending" | "success" | "failure";
 
 export const TokenDapp: FC<{
-  provider: ProviderInterface;
   account: AccountInterface;
-}> = ({ provider, account }) => {
+}> = ({ account }) => {
   const [erc20Address, seterc20Address] = useState("");
   const [transferTo, setTransferTo] = useState("");
 
@@ -29,7 +28,7 @@ export const TokenDapp: FC<{
       if (lastTransactionHash && transactionStatus === "pending") {
         setTransactionError("");
         try {
-          await waitForTransaction(provider, lastTransactionHash);
+          await waitForTransaction(account, lastTransactionHash);
           setTransactionStatus("success");
         } catch (error: any) {
           setTransactionStatus("failure");
@@ -43,7 +42,7 @@ export const TokenDapp: FC<{
     })();
   }, [transactionStatus, lastTransactionHash]);
 
-  const network = networkId(provider);
+  const network = networkId(account);
   if (network !== "goerli-alpha" && network !== "mainnet-alpha") {
     return (
       <>

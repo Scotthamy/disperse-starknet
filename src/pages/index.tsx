@@ -48,7 +48,7 @@ const Home: NextPage = () => {
                 <a href={getDisperseUrl("mainnet-alpha")}>SN_GOERLI</a>
               </code>
             </h3>
-            {account && <TokenDapp provider={provider} account={account} />}
+            {account && <TokenDapp account={account} />}
           </>
         ) : (
           <>

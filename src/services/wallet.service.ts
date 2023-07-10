@@ -25,8 +25,8 @@ export const connectWallet = async () => {
 //   return starknet.selectedAddress;
 // };
 
-export const networkId = async (provider: ProviderInterface) => {
-  const chainId = await provider.getChainId();
+export const networkId = async (accout: AccountInterface) => {
+  const chainId = await accout.getChainId();
   console.log(chainId);
   if (chainId === constants.StarknetChainId.SN_MAIN) {
     return "mainnet-alpha";
@@ -47,8 +47,8 @@ export const getExplorerBaseUrl = (): string | undefined => {
 };
 
 export const waitForTransaction = async (
-  provider: ProviderInterface,
+  accout: AccountInterface,
   hash: string
 ) => {
-  return provider.waitForTransaction(hash);
+  return accout.waitForTransaction(hash);
 };
