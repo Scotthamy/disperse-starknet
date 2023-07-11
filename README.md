@@ -5,6 +5,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development server:
 
 ```bash
+npm install
+# then
 npm run dev
 # or
 yarn dev
@@ -12,4 +14,6 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Usage
+
+Due to the current limitations of starkscan and voyager in verifying Cairo 1 contract source code, if you want to use it securely, please deploy the contract in the `contract` directory yourself and update the contract address variable in `src/services/utils.service.ts` after contract deployment.
