@@ -8,6 +8,8 @@
 # testing
 /coverage
 /src/components/TokenDapp_old.tsx
+/test_scripts
+
 
 # next.js
 /.next/

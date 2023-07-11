@@ -1,19 +1,11 @@
 import { connect } from "get-starknet";
-import {
-  AccountInterface,
-  constants,
-  shortString,
-  ProviderInterface,
-  provider,
-} from "starknet";
-
-import { Network } from "./utils.service";
+import { AccountInterface } from "starknet";
 
 export const connectWallet = async () => {
   const windowStarknet = await connect({
-    include: ["argentX"],
+    include: ["argentX", "braavos"],
   });
-  await windowStarknet?.enable({ starknetVersion: "v4" } as any);
+  await windowStarknet?.enable({ starknetVersion: "v5" } as any);
   return windowStarknet;
 };
 
@@ -38,9 +30,9 @@ export const networkId = (chain: string | undefined) => {
 
 export const getExplorerBaseUrl = (chain: string | undefined) => {
   if (chain === "SN_MAIN") {
-    return "https://voyager.online";
+    return "https://starkscan.co/";
   } else if (chain === "SN_GOERLI") {
-    return "https://goerli.voyager.online";
+    return "https://testnet.starkscan.co/";
   }
 };
 

@@ -1,10 +1,9 @@
 import { FC, useEffect, useState } from "react";
-import { AccountInterface, cairo, CallData, ProviderInterface } from "starknet";
+import { AccountInterface, cairo, CallData } from "starknet";
 import { truncateHex } from "../services/address.service";
 import { parseText, getDisperseAddress } from "../services/utils.service";
 import {
   getExplorerBaseUrl,
-  networkId,
   waitForTransaction,
 } from "../services/wallet.service";
 import styles from "../styles/Home.module.css";
@@ -56,9 +55,15 @@ export const TokenDapp: FC<{
       e.preventDefault();
       setTransactionStatus("approve");
 
-      let disperse_addresses = parseText(transferTo).updatedRecivers;
-      let disperse_amounts = parseText(transferTo).updatedAmounts;
-      let disperse_amounts_number = parseText(transferTo).updatedAmounts_number;
+      let disperse_addresses = await (
+        await parseText(transferTo, account, erc20Address)
+      ).updatedRecivers;
+      let disperse_amounts = (
+        await parseText(transferTo, account, erc20Address)
+      ).updatedAmounts;
+      let disperse_amounts_number = (
+        await parseText(transferTo, account, erc20Address)
+      ).updatedAmounts_number;
       let disperse_amounts_sum = disperse_amounts_number
         .reduce((sum, p) => sum.add(p))
         .toString();
