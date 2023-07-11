@@ -1,15 +1,14 @@
 import { BigNumber, utils } from "ethers";
 
 export const dispeseAddessByNetwork = {
-  "goerli-alpha":
+  SN_GOERLI:
     "0x01cddfc8b081342199e75413caccff64f2ff7f15954267ad95152fdacf66d25b",
-  "mainnet-alpha":
-    "0x00ecbd1107cdd47d0762908f6933b75d5b96896893dbf20c399c3808410ce940",
+  SN_MAIN: "0x00ecbd1107cdd47d0762908f6933b75d5b96896893dbf20c399c3808410ce940",
 };
 
 export const dispeseUrl = {
-  "goerli-alpha": "https://goerli.voyager.online/",
-  "mainnet-alpha": "https://voyager.online/",
+  SN_GOERLI: "https://goerli.voyager.online/contract/",
+  SN_MAIN: "https://voyager.online/contract/",
 };
 
 export type PublicNetwork =

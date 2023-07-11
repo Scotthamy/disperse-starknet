@@ -4,7 +4,7 @@ import { AccountInterface, shortString, ProviderInterface } from "starknet";
 
 import { TokenDapp } from "../components/TokenDapp";
 import { truncateAddress } from "../services/address.service";
-import { connectWallet } from "../services/wallet.service";
+import { connectWallet, networkId } from "../services/wallet.service";
 import styles from "../styles/Home.module.css";
 import { getDisperseUrl } from "../services/utils.service";
 
@@ -13,14 +13,10 @@ const Home: NextPage = () => {
   const [chain, setChain] = useState<string>();
   const [isConnected, setConnected] = useState(false);
   const [account, setAccount] = useState<AccountInterface | null>(null);
-  const [provider, setProvider] = useState<ProviderInterface | null>(null);
 
   const handleConnectClick = async () => {
     const wallet = await connectWallet();
     setAddress(wallet?.selectedAddress);
-    if (wallet?.provider) {
-      setProvider(wallet.provider);
-    }
     setChain(shortString.decodeShortString(wallet?.provider.chainId));
     setConnected(!!wallet?.isConnected);
     if (wallet?.account) {
@@ -42,13 +38,13 @@ const Home: NextPage = () => {
             <h3 style={{ margin: 0 }}>
               Contracts:{" "}
               <code className="contract">
-                <a href={getDisperseUrl("goerli-alpha")}>SN_GOERLI</a>
+                <a href={getDisperseUrl("SN_GOERLI")}>SN_GOERLI</a>
               </code>
               <code>
-                <a href={getDisperseUrl("mainnet-alpha")}>SN_GOERLI</a>
+                <a href={getDisperseUrl("SN_MAIN")}>SN_GOERLI</a>
               </code>
             </h3>
-            {account && <TokenDapp account={account} />}
+            {account && <TokenDapp account={account} chain={chain} />}
           </>
         ) : (
           <>

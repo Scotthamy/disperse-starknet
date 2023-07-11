@@ -25,23 +25,21 @@ export const connectWallet = async () => {
 //   return starknet.selectedAddress;
 // };
 
-export const networkId = async (accout: AccountInterface) => {
-  const chainId = await accout.getChainId();
-  console.log(chainId);
-  if (chainId === constants.StarknetChainId.SN_MAIN) {
+export const networkId = (chain: string | undefined) => {
+  console.log(chain);
+  if (chain === "SN_MAIN") {
     return "mainnet-alpha";
-  } else if (chainId === constants.StarknetChainId.SN_GOERLI) {
+  } else if (chain === "SN_GOERLI") {
     return "goerli-alpha";
   } else {
     return "localhost";
   }
 };
 
-export const getExplorerBaseUrl = (): string | undefined => {
-  const network = networkId(provider);
-  if (network === "mainnet-alpha") {
+export const getExplorerBaseUrl = (chain: string | undefined) => {
+  if (chain === "SN_MAIN") {
     return "https://voyager.online";
-  } else if (network === "goerli-alpha") {
+  } else if (chain === "SN_GOERLI") {
     return "https://goerli.voyager.online";
   }
 };

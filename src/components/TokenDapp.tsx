@@ -13,7 +13,8 @@ type Status = "idle" | "approve" | "pending" | "success" | "failure";
 
 export const TokenDapp: FC<{
   account: AccountInterface;
-}> = ({ account }) => {
+  chain: string | undefined;
+}> = ({ account, chain }) => {
   const [erc20Address, seterc20Address] = useState("");
   const [transferTo, setTransferTo] = useState("");
 
@@ -42,8 +43,7 @@ export const TokenDapp: FC<{
     })();
   }, [transactionStatus, lastTransactionHash]);
 
-  const network = networkId(account);
-  if (network !== "goerli-alpha" && network !== "mainnet-alpha") {
+  if (chain !== "SN_GOERLI" && chain !== "SN_MAIN") {
     return (
       <>
         <p>Please switch to Starknet Mainnet or Testnet.</p>
@@ -71,13 +71,13 @@ export const TokenDapp: FC<{
           contractAddress: erc20Address,
           entrypoint: "increaseAllowance",
           calldata: CallData.compile({
-            spender: getDisperseAddress(network),
+            spender: getDisperseAddress(chain),
             amount: cairo.uint256(disperse_amounts_sum),
           }),
         },
         // Calling the second contract
         {
-          contractAddress: getDisperseAddress(network),
+          contractAddress: getDisperseAddress(chain),
           entrypoint: "disperse_token",
           calldata: CallData.compile({
             token: erc20Address,
@@ -106,7 +106,7 @@ export const TokenDapp: FC<{
         <h3 style={{ margin: 0 }}>
           Transaction hash:{" "}
           <a
-            href={`${getExplorerBaseUrl()}/tx/${lastTransactionHash}`}
+            href={`${getExplorerBaseUrl(chain)}/tx/${lastTransactionHash}`}
             target="_blank"
             rel="noreferrer"
             style={{ color: "blue", margin: "0 0 1em" }}
