@@ -41,7 +41,7 @@ const Home: NextPage = () => {
                 <a href={getDisperseUrl("SN_GOERLI")}>SN_GOERLI</a>
               </code>
               <code>
-                <a href={getDisperseUrl("SN_MAIN")}>SN_GOERLI</a>
+                <a href={getDisperseUrl("SN_MAIN")}>SN_MAIN</a>
               </code>
             </h3>
             {account && <TokenDapp account={account} chain={chain} />}
