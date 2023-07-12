@@ -8,6 +8,8 @@ import { connectWallet, networkId } from "../services/wallet.service";
 import styles from "../styles/Home.module.css";
 import { getDisperseUrl } from "../services/utils.service";
 
+const github_url = "https://github.com/Scotthamy/disperse-starknet";
+
 const Home: NextPage = () => {
   const [address, setAddress] = useState<string>();
   const [chain, setChain] = useState<string>();
@@ -42,6 +44,9 @@ const Home: NextPage = () => {
               </code>
               <code>
                 <a href={getDisperseUrl("SN_MAIN")}>SN_MAIN</a>
+              </code>
+              <code>
+                <a href={github_url}>disperse-starknet</a>
               </code>
             </h3>
             {account && <TokenDapp account={account} chain={chain} />}
