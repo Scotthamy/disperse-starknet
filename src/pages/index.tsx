@@ -46,7 +46,7 @@ const Home: NextPage = () => {
                 <a href={getDisperseUrl("SN_MAIN")}>SN_MAIN</a>
               </code>
               <code>
-                <a href={github_url}>disperse-starknet</a>
+                <a href={github_url}>Deploy Your Own Version (Github)</a>
               </code>
             </h3>
             {account && <TokenDapp account={account} chain={chain} />}
