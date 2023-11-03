@@ -1,5 +1,6 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+The contract is for dispersing erc20 token in starknet to multiple addresses.
 ## Getting Started
 
 First, run the development server:
