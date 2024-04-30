@@ -56,7 +56,7 @@ const Home: NextPage = () => {
             <button className={styles.connect} onClick={handleConnectClick}>
               Connect Wallet
             </button>
-            <p>First connect wallet to use dapp.</p>
+            <p>https://github.com/Scotthamy/disperse-starknet</p>
           </>
         )}
       </main>
