@@ -26,3 +26,5 @@ Here are the disperse contract in this repo:
 Testnet: 0x01cddfc8b081342199e75413caccff64f2ff7f15954267ad95152fdacf66d25b
 
 Mainnet: 0x00ecbd1107cdd47d0762908f6933b75d5b96896893dbf20c399c3808410ce940
+
+author address: 0x0785169216de6d9E8035D721E42fcebd4d441bdc5BF51216a75D807899E8B803
